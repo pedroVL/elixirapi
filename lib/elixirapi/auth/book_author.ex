@@ -1,9 +1,9 @@
 defmodule Elixirapi.Auth.BookAuthor do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Elixirapi.Auth.User
-  alias Elixirapi.Auth.Method
-
+  alias Elixirapi.Auth.Book
+  alias Elixirapi.Auth.Author
+  
   @timestamps_opts [type: Ecto.DateTime, usec: false]
 
   schema "book_authors" do

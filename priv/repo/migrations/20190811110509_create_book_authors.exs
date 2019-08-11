@@ -11,7 +11,7 @@ defmodule Elixirapi.Repo.Migrations.CreateBookAuthors do
 
     create index(:book_authors, [:book_id])
     create index(:book_authors, [:author_id])
-    create unique_index(:book_authors, [:book_id, :author_id])
+    # create unique_index(:book_authors, [:book_id, :author_id])
 
   end
 end
