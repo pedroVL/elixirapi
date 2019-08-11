@@ -45,12 +45,14 @@ defmodule ElixirapiWeb.UserController do
     case Elixirapi.Auth.authenticate_user(username, password) do
       {:ok, user} ->
         conn
+        |> put_session(:current_user_id, user.id)
         |> put_status(:ok)
         |> put_view(ElixirapiWeb.UserView)
         |> render("sign_in.json", user: user)
 
       {:error, message} ->
         conn
+        |> delete_session(:current_user_id)
         |> put_status(:unauthorized)
         |> put_view(ElixirapiWeb.ErrorView)
         |> render("401.json", message: message)

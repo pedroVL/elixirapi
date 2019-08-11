@@ -2,9 +2,9 @@ defmodule Elixirapi.AuthTest do
   use Elixirapi.DataCase
 
   alias Elixirapi.Auth
+  alias Elixirapi.Auth.User
 
   describe "users" do
-    alias Elixirapi.Auth.User
 
     @valid_attrs %{username: "some username", password: "some password"}
     @update_attrs %{
@@ -22,7 +22,6 @@ defmodule Elixirapi.AuthTest do
       user
     end
 
-   
     test "list_users/0 returns all users" do
       user = user_fixture()
       assert Auth.list_users() == [%User{user | password: nil}]
@@ -72,5 +71,11 @@ defmodule Elixirapi.AuthTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+  end
+
+  test "authenticate_user/2 authenticates the user" do
+    user = user_fixture()
+    assert {:error, "Wrong username or password"} = Auth.authenticate_user("wrong username", "")
+    assert {:ok, authenticated_user} = Auth.authenticate_user(user.username, @valid_attrs.password)
   end
 end
