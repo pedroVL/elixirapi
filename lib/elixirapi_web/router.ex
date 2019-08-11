@@ -13,12 +13,14 @@ defmodule ElixirapiWeb.Router do
   scope "/api", ElixirapiWeb do
     pipe_through :api
     resources "/users", UserController, only: [:index, :show]
+    resources "/books", BookController, only: [:index, :show]
     post "/users/sign_in", UserController, :sign_in
   end
 
   scope "/api", ElixirapiWeb do
     pipe_through [:api, :api_auth]
     resources "/users", UserController, except: [:new, :edit, :index, :show]
+    resources "/books", BookController, except: [:new, :edit, :index, :show]
   end
 
   # Plug function

@@ -78,4 +78,66 @@ defmodule Elixirapi.AuthTest do
     assert {:error, "Wrong username or password"} = Auth.authenticate_user("wrong username", "")
     assert {:ok, authenticated_user} = Auth.authenticate_user(user.username, @valid_attrs.password)
   end
+
+  describe "book" do
+    alias Elixirapi.Auth.Book
+
+    @valid_attrs %{description: "some description", name: "some name"}
+    @update_attrs %{description: "some updated description", name: "some updated name"}
+    @invalid_attrs %{description: nil, name: nil}
+
+    def book_fixture(attrs \\ %{}) do
+      {:ok, book} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_book()
+
+      book
+    end
+
+    test "list_book/0 returns all book" do
+      book = book_fixture()
+      assert Auth.list_book() == [book]
+    end
+
+    test "get_book!/1 returns the book with given id" do
+      book = book_fixture()
+      assert Auth.get_book!(book.id) == book
+    end
+
+    test "create_book/1 with valid data creates a book" do
+      assert {:ok, %Book{} = book} = Auth.create_book(@valid_attrs)
+      assert book.description == "some description"
+      assert book.name == "some name"
+    end
+
+    test "create_book/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_book(@invalid_attrs)
+    end
+
+    test "update_book/2 with valid data updates the book" do
+      book = book_fixture()
+      assert {:ok, book} = Auth.update_book(book, @update_attrs)
+      assert %Book{} = book
+      assert book.description == "some updated description"
+      assert book.name == "some updated name"
+    end
+
+    test "update_book/2 with invalid data returns error changeset" do
+      book = book_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_book(book, @invalid_attrs)
+      assert book == Auth.get_book!(book.id)
+    end
+
+    test "delete_book/1 deletes the book" do
+      book = book_fixture()
+      assert {:ok, %Book{}} = Auth.delete_book(book)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_book!(book.id) end
+    end
+
+    test "change_book/1 returns a book changeset" do
+      book = book_fixture()
+      assert %Ecto.Changeset{} = Auth.change_book(book)
+    end
+  end
 end
