@@ -12,8 +12,10 @@ config :logger, level: :warn
 # Configure your database
 config :elixirapi, Elixirapi.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
+  username: "pedro",
+  password: "123.PedroTEST",
   database: "elixirapi_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+  config :bcrypt_elixir, :log_rounds, 4
