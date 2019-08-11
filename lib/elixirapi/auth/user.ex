@@ -2,6 +2,7 @@ defmodule Elixirapi.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @timestamps_opts [type: Ecto.DateTime, usec: false]
 
   schema "users" do
     field :username, :string

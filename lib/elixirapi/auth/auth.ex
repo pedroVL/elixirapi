@@ -101,4 +101,23 @@ defmodule Elixirapi.Auth do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  def authenticate_user(username, password) do
+    query = from(u in User, where: u.username == ^username)
+    query |> Repo.one() |> verify_password(password)
+  end
+  
+  defp verify_password(nil, _) do
+    # Perform a dummy check to make user enumeration more difficult
+    Bcrypt.no_user_verify()
+    {:error, "Wrong username or password"}
+  end
+
+  defp verify_password(user, password) do
+    if Bcrypt.verify_pass(password, user.password_hash) do
+      {:ok, user}
+    else
+      {:error, "Wrong username or password"}
+    end
+  end
 end

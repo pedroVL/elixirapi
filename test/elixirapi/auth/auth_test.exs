@@ -6,9 +6,12 @@ defmodule Elixirapi.AuthTest do
   describe "users" do
     alias Elixirapi.Auth.User
 
-    @valid_attrs %{username: "some username"}
-    @update_attrs %{username: "some updated username"}
-    @invalid_attrs %{username: nil}
+    @valid_attrs %{username: "some username", password: "some password"}
+    @update_attrs %{
+      username: "some updated username",
+      password: "some updated password"
+    }
+    @invalid_attrs %{username: nil, password: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -19,19 +22,24 @@ defmodule Elixirapi.AuthTest do
       user
     end
 
+   
     test "list_users/0 returns all users" do
       user = user_fixture()
-      assert Auth.list_users() == [user]
+      assert Auth.list_users() == [%User{user | password: nil}]
+
     end
 
     test "get_user!/1 returns the user with given id" do
       user = user_fixture()
-      assert Auth.get_user!(user.id) == user
+      assert Auth.get_user!(user.id) == %User{user | password: nil}
     end
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Auth.create_user(@valid_attrs)
       assert user.username == "some username"
+      assert user.password == "some password"
+      assert Bcrypt.verify_pass("some password", user.password_hash)
+
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -43,12 +51,15 @@ defmodule Elixirapi.AuthTest do
       assert {:ok, user} = Auth.update_user(user, @update_attrs)
       assert %User{} = user
       assert user.username == "some updated username"
+      assert Bcrypt.verify_pass("some updated password", user.password_hash)
+
     end
 
     test "update_user/2 with invalid data returns error changeset" do
       user = user_fixture()
       assert {:error, %Ecto.Changeset{}} = Auth.update_user(user, @invalid_attrs)
-      assert user == Auth.get_user!(user.id)
+      assert %User{user | password: nil} == Auth.get_user!(user.id)
+      assert Bcrypt.verify_pass("some password", user.password_hash)
     end
 
     test "delete_user/1 deletes the user" do
