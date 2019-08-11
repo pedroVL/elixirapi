@@ -38,8 +38,9 @@ defmodule Elixirapi.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:mariaex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
-    ]
+      # {:cowboy, "~> 1.0"}
+      {:plug_cowboy, "~> 1.0"},
+      {:bcrypt_elixir, "~> 2.0"}    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

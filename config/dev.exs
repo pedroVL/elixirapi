@@ -8,7 +8,7 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :elixirapi, ElixirapiWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false, # set to false to avoid html
   code_reloader: true,
   check_origin: false,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
@@ -40,8 +40,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :elixirapi, Elixirapi.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
+  username: "pedro",
+  password: "123.PedroTEST",
   database: "elixirapi_dev",
   hostname: "localhost",
   pool_size: 10
