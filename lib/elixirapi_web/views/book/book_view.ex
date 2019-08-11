@@ -1,6 +1,6 @@
-defmodule ElixirapiWeb.Book.BookView do
+defmodule ElixirapiWeb.BookView do
   use ElixirapiWeb, :view
-  alias ElixirapiWeb.Book.BookView
+  alias ElixirapiWeb.BookView
 
   def render("index.json", %{books: books}) do
     %{data: render_many(books, BookView, "book.json")}

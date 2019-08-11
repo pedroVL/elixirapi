@@ -46,7 +46,7 @@ defmodule ElixirapiWeb.BookControllerTest do
     setup [:create_book]
 
     test "renders book when data is valid", %{conn: conn, book: %Book{id: id} = book} do
-      conn = put conn, book_path(conn, :update, book), book: @update_attrs
+      conn = patch conn, book_path(conn, :update, book), book: @update_attrs
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get conn, book_path(conn, :show, id)

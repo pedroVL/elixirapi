@@ -95,9 +95,9 @@ defmodule Elixirapi.AuthTest do
       book
     end
 
-    test "list_book/0 returns all book" do
+    test "list_books/0 returns all book" do
       book = book_fixture()
-      assert Auth.list_book() == [book]
+      assert Auth.list_books() == [book]
     end
 
     test "get_book!/1 returns the book with given id" do
@@ -138,6 +138,68 @@ defmodule Elixirapi.AuthTest do
     test "change_book/1 returns a book changeset" do
       book = book_fixture()
       assert %Ecto.Changeset{} = Auth.change_book(book)
+    end
+  end
+
+  describe "authors" do
+    alias Elixirapi.Auth.Author
+
+    @valid_attrs %{firstname: "some firstname", lastname: "some lastname"}
+    @update_attrs %{firstname: "some updated firstname", lastname: "some updated lastname"}
+    @invalid_attrs %{firstname: nil, lastname: nil}
+
+    def author_fixture(attrs \\ %{}) do
+      {:ok, author} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_author()
+
+      author
+    end
+
+    test "list_authors/0 returns all authors" do
+      author = author_fixture()
+      assert Auth.list_authors() == [author]
+    end
+
+    test "get_author!/1 returns the author with given id" do
+      author = author_fixture()
+      assert Auth.get_author!(author.id) == author
+    end
+
+    test "create_author/1 with valid data creates a author" do
+      assert {:ok, %Author{} = author} = Auth.create_author(@valid_attrs)
+      assert author.firstname == "some firstname"
+      assert author.lastname == "some lastname"
+    end
+
+    test "create_author/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_author(@invalid_attrs)
+    end
+
+    test "update_author/2 with valid data updates the author" do
+      author = author_fixture()
+      assert {:ok, author} = Auth.update_author(author, @update_attrs)
+      assert %Author{} = author
+      assert author.firstname == "some updated firstname"
+      assert author.lastname == "some updated lastname"
+    end
+
+    test "update_author/2 with invalid data returns error changeset" do
+      author = author_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_author(author, @invalid_attrs)
+      assert author == Auth.get_author!(author.id)
+    end
+
+    test "delete_author/1 deletes the author" do
+      author = author_fixture()
+      assert {:ok, %Author{}} = Auth.delete_author(author)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_author!(author.id) end
+    end
+
+    test "change_author/1 returns a author changeset" do
+      author = author_fixture()
+      assert %Ecto.Changeset{} = Auth.change_author(author)
     end
   end
 end
