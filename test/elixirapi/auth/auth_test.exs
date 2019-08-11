@@ -322,4 +322,62 @@ defmodule Elixirapi.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_method(method)
     end
   end
+
+  describe "user_methods" do
+    alias Elixirapi.Auth.UserMethod
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def user_method_fixture(attrs \\ %{}) do
+      {:ok, user_method} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_user_method()
+
+      user_method
+    end
+
+    test "list_user_methods/0 returns all user_methods" do
+      user_method = user_method_fixture()
+      assert Auth.list_user_methods() == [user_method]
+    end
+
+    test "get_user_method!/1 returns the user_method with given id" do
+      user_method = user_method_fixture()
+      assert Auth.get_user_method!(user_method.id) == user_method
+    end
+
+    test "create_user_method/1 with valid data creates a user_method" do
+      assert {:ok, %UserMethod{} = user_method} = Auth.create_user_method(@valid_attrs)
+    end
+
+    test "create_user_method/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_user_method(@invalid_attrs)
+    end
+
+    test "update_user_method/2 with valid data updates the user_method" do
+      user_method = user_method_fixture()
+      assert {:ok, user_method} = Auth.update_user_method(user_method, @update_attrs)
+      assert %UserMethod{} = user_method
+    end
+
+    test "update_user_method/2 with invalid data returns error changeset" do
+      user_method = user_method_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_user_method(user_method, @invalid_attrs)
+      assert user_method == Auth.get_user_method!(user_method.id)
+    end
+
+    test "delete_user_method/1 deletes the user_method" do
+      user_method = user_method_fixture()
+      assert {:ok, %UserMethod{}} = Auth.delete_user_method(user_method)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_user_method!(user_method.id) end
+    end
+
+    test "change_user_method/1 returns a user_method changeset" do
+      user_method = user_method_fixture()
+      assert %Ecto.Changeset{} = Auth.change_user_method(user_method)
+    end
+  end
 end

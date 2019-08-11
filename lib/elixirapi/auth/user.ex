@@ -1,6 +1,7 @@
 defmodule Elixirapi.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Elixirapi.Auth.Method
 
   @timestamps_opts [type: Ecto.DateTime, usec: false]
 
@@ -8,7 +9,11 @@ defmodule Elixirapi.Auth.User do
     field :username, :string
     field :password, :string, virtual: true
     field :password_hash, :string
-
+    many_to_many(
+      :methods,
+      Method,
+      join_through: "user_method"
+    )
     timestamps()
   end
 

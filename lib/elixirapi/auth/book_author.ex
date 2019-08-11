@@ -1,7 +1,10 @@
 defmodule Elixirapi.Auth.BookAuthor do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Elixirapi.Auth.User
+  alias Elixirapi.Auth.Method
 
+  @timestamps_opts [type: Ecto.DateTime, usec: false]
 
   schema "book_authors" do
     # #for some reason it is always failing when I try to get the keys

@@ -504,4 +504,100 @@ defmodule Elixirapi.Auth do
   def change_method(%Method{} = method) do
     Method.changeset(method, %{})
   end
+
+  alias Elixirapi.Auth.UserMethod
+
+  @doc """
+  Returns the list of user_methods.
+
+  ## Examples
+
+      iex> list_user_methods()
+      [%UserMethod{}, ...]
+
+  """
+  def list_user_methods do
+    Repo.all(UserMethod)
+  end
+
+  @doc """
+  Gets a single user_method.
+
+  Raises `Ecto.NoResultsError` if the User method does not exist.
+
+  ## Examples
+
+      iex> get_user_method!(123)
+      %UserMethod{}
+
+      iex> get_user_method!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_method!(id), do: Repo.get!(UserMethod, id)
+
+  @doc """
+  Creates a user_method.
+
+  ## Examples
+
+      iex> create_user_method(%{field: value})
+      {:ok, %UserMethod{}}
+
+      iex> create_user_method(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_user_method(attrs \\ %{}) do
+    %UserMethod{}
+    |> UserMethod.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a user_method.
+
+  ## Examples
+
+      iex> update_user_method(user_method, %{field: new_value})
+      {:ok, %UserMethod{}}
+
+      iex> update_user_method(user_method, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user_method(%UserMethod{} = user_method, attrs) do
+    user_method
+    |> UserMethod.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a UserMethod.
+
+  ## Examples
+
+      iex> delete_user_method(user_method)
+      {:ok, %UserMethod{}}
+
+      iex> delete_user_method(user_method)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_user_method(%UserMethod{} = user_method) do
+    Repo.delete(user_method)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user_method changes.
+
+  ## Examples
+
+      iex> change_user_method(user_method)
+      %Ecto.Changeset{source: %UserMethod{}}
+
+  """
+  def change_user_method(%UserMethod{} = user_method) do
+    UserMethod.changeset(user_method, %{})
+  end
 end

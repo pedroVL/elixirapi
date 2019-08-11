@@ -12,8 +12,7 @@ defmodule Elixirapi.Auth.Book do
     many_to_many(
       :authors,
       Author,
-      join_through: "book_author",
-      on_replace: :delete
+      join_through: "book_author"
     )
 
     timestamps()
