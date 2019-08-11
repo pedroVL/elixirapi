@@ -40,8 +40,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :elixirapi, Elixirapi.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
+  username: "pedro",
+  password: "123.PedroTEST",
   database: "elixirapi_dev",
   hostname: "localhost",
   pool_size: 10
