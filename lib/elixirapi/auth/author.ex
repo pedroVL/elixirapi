@@ -1,12 +1,20 @@
 defmodule Elixirapi.Auth.Author do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Elixirapi.Auth.Book
 
   @timestamps_opts [type: Ecto.DateTime, usec: false]
 
   schema "authors" do
     field :firstname, :string
     field :lastname, :string
+
+    many_to_many(
+      :books,
+      Book,
+      join_through: "book_author",
+      on_replace: :delete
+    )
 
     timestamps()
   end

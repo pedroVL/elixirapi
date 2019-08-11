@@ -202,4 +202,124 @@ defmodule Elixirapi.AuthTest do
       assert %Ecto.Changeset{} = Auth.change_author(author)
     end
   end
+
+  describe "book_authors" do
+    alias Elixirapi.Auth.BookAuthor
+
+    @create_attrs %{book_id: 1, author_id: 2}
+    @update_attrs %{book_id: 2, author_id: 3}
+    @invalid_attrs %{book_id: nil, author_id: nil}
+
+    def book_author_fixture(attrs \\ %{}) do
+      {:ok, book_author} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_book_author()
+
+      book_author
+    end
+
+    test "list_book_authors/0 returns all book_authors" do
+      book_author = book_author_fixture()
+      assert Auth.list_book_authors() == [book_author]
+    end
+
+    test "get_book_author!/1 returns the book_author with given id" do
+      book_author = book_author_fixture()
+      assert Auth.get_book_author!(book_author.id) == book_author
+    end
+
+    test "create_book_author/1 with valid data creates a book_author" do
+      assert {:ok, %BookAuthor{} = book_author} = Auth.create_book_author(@valid_attrs)
+    end
+
+    test "create_book_author/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_book_author(@invalid_attrs)
+    end
+
+    test "update_book_author/2 with valid data updates the book_author" do
+      book_author = book_author_fixture()
+      assert {:ok, book_author} = Auth.update_book_author(book_author, @update_attrs)
+      assert %BookAuthor{} = book_author
+    end
+
+    test "update_book_author/2 with invalid data returns error changeset" do
+      book_author = book_author_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_book_author(book_author, @invalid_attrs)
+      assert book_author == Auth.get_book_author!(book_author.id)
+    end
+
+    test "delete_book_author/1 deletes the book_author" do
+      book_author = book_author_fixture()
+      assert {:ok, %BookAuthor{}} = Auth.delete_book_author(book_author)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_book_author!(book_author.id) end
+    end
+
+    test "change_book_author/1 returns a book_author changeset" do
+      book_author = book_author_fixture()
+      assert %Ecto.Changeset{} = Auth.change_book_author(book_author)
+    end
+  end
+
+  describe "methods" do
+    alias Elixirapi.Auth.Method
+
+    @valid_attrs %{function: "some function", method: "some method"}
+    @update_attrs %{function: "some updated function", method: "some updated method"}
+    @invalid_attrs %{function: nil, method: nil}
+
+    def method_fixture(attrs \\ %{}) do
+      {:ok, method} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Auth.create_method()
+
+      method
+    end
+
+    test "list_methods/0 returns all methods" do
+      method = method_fixture()
+      assert Auth.list_methods() == [method]
+    end
+
+    test "get_method!/1 returns the method with given id" do
+      method = method_fixture()
+      assert Auth.get_method!(method.id) == method
+    end
+
+    test "create_method/1 with valid data creates a method" do
+      assert {:ok, %Method{} = method} = Auth.create_method(@valid_attrs)
+      assert method.function == "some function"
+      assert method.method == "some method"
+    end
+
+    test "create_method/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Auth.create_method(@invalid_attrs)
+    end
+
+    test "update_method/2 with valid data updates the method" do
+      method = method_fixture()
+      assert {:ok, method} = Auth.update_method(method, @update_attrs)
+      assert %Method{} = method
+      assert method.function == "some updated function"
+      assert method.method == "some updated method"
+    end
+
+    test "update_method/2 with invalid data returns error changeset" do
+      method = method_fixture()
+      assert {:error, %Ecto.Changeset{}} = Auth.update_method(method, @invalid_attrs)
+      assert method == Auth.get_method!(method.id)
+    end
+
+    test "delete_method/1 deletes the method" do
+      method = method_fixture()
+      assert {:ok, %Method{}} = Auth.delete_method(method)
+      assert_raise Ecto.NoResultsError, fn -> Auth.get_method!(method.id) end
+    end
+
+    test "change_method/1 returns a method changeset" do
+      method = method_fixture()
+      assert %Ecto.Changeset{} = Auth.change_method(method)
+    end
+  end
 end

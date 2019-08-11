@@ -312,4 +312,196 @@ defmodule Elixirapi.Auth do
   def change_author(%Author{} = author) do
     Author.changeset(author, %{})
   end
+
+  alias Elixirapi.Auth.BookAuthor
+
+  @doc """
+  Returns the list of book_authors.
+
+  ## Examples
+
+      iex> list_book_authors()
+      [%BookAuthor{}, ...]
+
+  """
+  def list_book_authors do
+    Repo.all(BookAuthor)
+  end
+
+  @doc """
+  Gets a single book_author.
+
+  Raises `Ecto.NoResultsError` if the Book author does not exist.
+
+  ## Examples
+
+      iex> get_book_author!(123)
+      %BookAuthor{}
+
+      iex> get_book_author!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_book_author!(id), do: Repo.get!(BookAuthor, id)
+
+  @doc """
+  Creates a book_author.
+
+  ## Examples
+
+      iex> create_book_author(%{field: value})
+      {:ok, %BookAuthor{}}
+
+      iex> create_book_author(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_book_author(attrs \\ %{}) do
+    %BookAuthor{}
+    |> BookAuthor.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a book_author.
+
+  ## Examples
+
+      iex> update_book_author(book_author, %{field: new_value})
+      {:ok, %BookAuthor{}}
+
+      iex> update_book_author(book_author, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_book_author(%BookAuthor{} = book_author, attrs) do
+    book_author
+    |> BookAuthor.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a BookAuthor.
+
+  ## Examples
+
+      iex> delete_book_author(book_author)
+      {:ok, %BookAuthor{}}
+
+      iex> delete_book_author(book_author)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_book_author(%BookAuthor{} = book_author) do
+    Repo.delete(book_author)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking book_author changes.
+
+  ## Examples
+
+      iex> change_book_author(book_author)
+      %Ecto.Changeset{source: %BookAuthor{}}
+
+  """
+  def change_book_author(%BookAuthor{} = book_author) do
+    BookAuthor.changeset(book_author, %{})
+  end
+
+  alias Elixirapi.Auth.Method
+
+  @doc """
+  Returns the list of methods.
+
+  ## Examples
+
+      iex> list_methods()
+      [%Method{}, ...]
+
+  """
+  def list_methods do
+    Repo.all(Method)
+  end
+
+  @doc """
+  Gets a single method.
+
+  Raises `Ecto.NoResultsError` if the Method does not exist.
+
+  ## Examples
+
+      iex> get_method!(123)
+      %Method{}
+
+      iex> get_method!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_method!(id), do: Repo.get!(Method, id)
+
+  @doc """
+  Creates a method.
+
+  ## Examples
+
+      iex> create_method(%{field: value})
+      {:ok, %Method{}}
+
+      iex> create_method(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_method(attrs \\ %{}) do
+    %Method{}
+    |> Method.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a method.
+
+  ## Examples
+
+      iex> update_method(method, %{field: new_value})
+      {:ok, %Method{}}
+
+      iex> update_method(method, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_method(%Method{} = method, attrs) do
+    method
+    |> Method.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Method.
+
+  ## Examples
+
+      iex> delete_method(method)
+      {:ok, %Method{}}
+
+      iex> delete_method(method)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_method(%Method{} = method) do
+    Repo.delete(method)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking method changes.
+
+  ## Examples
+
+      iex> change_method(method)
+      %Ecto.Changeset{source: %Method{}}
+
+  """
+  def change_method(%Method{} = method) do
+    Method.changeset(method, %{})
+  end
 end
