@@ -19,21 +19,21 @@ defmodule ElixirapiWeb.Router do
     resources "/user_methods", UserMethodController, only: [:index, :show]
     post "/users/sign_in", UserController, :sign_in
     #for testing only
-    resources "/users", UserController, except: [:new, :edit, :index, :show]
-    resources "/books", BookController, except: [:new, :edit, :index, :show]
-    resources "/authors", AuthorController, except: [:new, :edit, :index, :show]
-    resources "/book_authors", BookAuthorController, except: [:new, :edit, :index, :show]
-    resources "/user_methods", UserMethodController, except: [:new, :edit, :index, :show]
-    resources "/methods", MethodController, except: [:new, :edit, :index, :show]
-  end
-  
-  scope "/api", ElixirapiWeb do
-    pipe_through [:api, :api_auth]
     # resources "/users", UserController, except: [:new, :edit, :index, :show]
     # resources "/books", BookController, except: [:new, :edit, :index, :show]
     # resources "/authors", AuthorController, except: [:new, :edit, :index, :show]
     # resources "/book_authors", BookAuthorController, except: [:new, :edit, :index, :show]
+    # resources "/user_methods", UserMethodController, except: [:new, :edit, :index, :show]
     # resources "/methods", MethodController, except: [:new, :edit, :index, :show]
+  end
+  
+  scope "/api", ElixirapiWeb do
+    pipe_through [:api, :api_auth]
+    resources "/users", UserController, except: [:new, :edit, :index, :show]
+    resources "/books", BookController, except: [:new, :edit, :index, :show]
+    resources "/authors", AuthorController, except: [:new, :edit, :index, :show]
+    resources "/book_authors", BookAuthorController, except: [:new, :edit, :index, :show]
+    resources "/methods", MethodController, except: [:new, :edit, :index, :show]
   end
 
   # Plug function
