@@ -48,10 +48,10 @@ Elixirapi.Auth.create_method(%{function: "function5", method: "method5"})
 Elixirapi.Auth.create_method(%{function: "function6", method: "method6"})
 Elixirapi.Auth.create_method(%{function: "function7", method: "method7"})
 
-Elixirapi.Auth.create_user_method(%{user_id: 1, method_id: 1})
-Elixirapi.Auth.create_user_method(%{user_id: 2, method_id: 2})
-Elixirapi.Auth.create_user_method(%{user_id: 2, method_id: 3})
-Elixirapi.Auth.create_user_method(%{user_id: 3, method_id: 3})
-Elixirapi.Auth.create_user_method(%{user_id: 4, method_id: 4})
-Elixirapi.Auth.create_user_method(%{user_id: 5, method_id: 5})
-Elixirapi.Auth.create_user_method(%{user_id: 6, method_id: 5})
+Elixirapi.Auth.create_user_method(%{user_id: 1, method_id: 1});
+Elixirapi.Auth.create_user_method(%{user_id: 2, method_id: 2});
+Elixirapi.Auth.create_user_method(%{user_id: 2, method_id: 3});
+Elixirapi.Auth.create_user_method(%{user_id: 3, method_id: 3});
+Elixirapi.Auth.create_user_method(%{user_id: 4, method_id: 4});
+Elixirapi.Auth.create_user_method(%{user_id: 5, method_id: 5});
+Elixirapi.Auth.create_user_method(%{user_id: 6, method_id: 5});
